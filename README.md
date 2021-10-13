@@ -28,3 +28,7 @@ Các công đoạn hoàn thành:
 + Đăng nhập customer Google 
 + Quên mật khẩu 
 + Statictical 
++ Footer 
++ icon 
++ Social network 
++ Đối tác (CRUD)
