@@ -1,4 +1,4 @@
-# Website_Laravel
+﻿# Website_Laravel
 Các công đoạn hoàn thành:
 + Category(CRUD)
 + Account(CRUD)
@@ -32,3 +32,9 @@ Các công đoạn hoàn thành:
 + icon 
 + Social network 
 + Đối tác (CRUD)
++ Lịch sử mua hàng 
++ Giỏ hàng 
++ Huỷ đơn hàng 
++ Modal cart 
++ show button cart 
++ validation 
