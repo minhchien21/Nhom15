@@ -14,6 +14,7 @@ use App\Models\Icons;
 use App\Models\Rating;
 
 use Cart;
+
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\DB;
 

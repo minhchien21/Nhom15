@@ -145,13 +145,13 @@
 								// $shipping_id=Session::get('shipping_id')
 								if ($customer_id != NULL) {
 								?>
-									<li><a href="{{url('/checkout')}}"><i class="fa fa-crosshairs"></i> Thanh Toán </a></li>
+									<li><a href="{{url('/checkout')}}"><i class="fa fa-crosshairs"></i> {{__('lang.pay')}} </a></li>
 
 								<?php
 
 								} else {
 								?>
-									<li><a href="{{url('/login_checkout')}}"><i class="fa fa-crosshairs"></i> Thanh Toán </a></li>
+									<li><a href="{{url('/login_checkout')}}"><i class="fa fa-crosshairs"></i> {{__('lang.pay')}} </a></li>
 								<?php
 								}
 								?>
@@ -198,7 +198,7 @@
 										display: inline-grid;
 									}
 								</style>
-								<li class="hover_cart_li"><a href="{{url('/giohang')}}"><i class="fa fa-shopping-cart"></i> Giỏ Hàng
+								<li class="hover_cart_li"><a href="{{url('/giohang')}}"><i class="fa fa-shopping-cart"></i> {{__('lang.cart')}}
 
 										<span class="show_cart"></span>
 										<div class="clearfix"></div>
@@ -213,7 +213,7 @@
 								$customer_id = Session::get('customer_id');
 								if ($customer_id != NULL) {
 								@endphp
-								<li><a href="{{url('/history_order')}}"><i class="fa fa-bell"></i> Lịch sử đơn hàng </a></li>
+								<li><a href="{{url('/history_order')}}"><i class="fa fa-bell"></i> {{__('lang.history_order')}} </a></li>
 
 								@php
 								}
@@ -223,7 +223,7 @@
 								$customer_id = Session::get('customer_id');
 								if ($customer_id != NULL) {
 								?>
-									<li><a href="{{url('/logout_checkout')}}"><i class="fa fa-lock"></i> Đăng Xuất </a></li>
+									<li><a href="{{url('/logout_checkout')}}"><i class="fa fa-lock"></i>{{__('lang.logout')}} </a></li>
 									<li><a href="#"><i class="fa fa-user"></i> {{Session::get('customer_name')}} </a></li>
 
 
@@ -233,7 +233,7 @@
 
 								} else {
 								?>
-									<li><a href="{{url('/login_checkout')}}"><i class="fa fa-lock"></i> Đăng Nhập </a></li>
+									<li><a href="{{url('/login_checkout')}}"><i class="fa fa-lock"></i> {{__('lang.login')}} </a></li>
 								<?php
 								}
 								?>
@@ -360,7 +360,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="left-sidebar">
-						<h2>Danh mục sản phẩm </h2>
+						<h2>{{__('lang.brand_product')}} </h2>
 						<div class="panel-group category-products" id="accordian">
 							<!--category-productsr-->
 							@foreach($brand as $brands)
@@ -406,7 +406,7 @@
 
 						<div class="brands_products">
 							<!--brands_products-->
-							<h2>Thể Loại</h2>
+							<h2>{{__('lang.category')}}</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
 									@foreach($category as $category)
@@ -419,7 +419,7 @@
 						<!-- Sản phẩm đã xem  -->
 						<div class="brands_products">
 
-							<h2>Lịch sử xem </h2>
+							<h2>{{__('lang.history_watch')}} </h2>
 							<div class="brands-name">
 								<div id="row_watched" class="row">
 
@@ -429,7 +429,7 @@
 
 						<div class="brands_products">
 							<!--brands_products-->
-							<h2>Sản phẩm yêu thích</h2>
+							<h2>{{__('lang.wishlist')}}</h2>
 							<div class="brands-name">
 								<div id="row_wishlist" class="row">
 
@@ -1138,6 +1138,52 @@
 			});
 
 		});
+		$(document).ready(function() {
+			$('.add-to-cart1').click(function() {
+				var id = $(this).data('id_product');
+				var cart_product_id = $('.cart_product_id_' + id).val()
+				var cart_product_name = $('.cart_product_name_' + id).val();
+				var cart_product_img = $('.cart_product_img_' + id).val();
+				var cart_product_price = $('.cart_product_price_' + id).val();
+				var cart_product_qty = $('.cart_product_qty_' + id).val();
+				var cart_product_quantity = $('.cart_product_quantity_' + id).val();
+				var _token = $('input[name="_token"]').val();
+
+
+				if (parseInt(cart_product_qty) > parseInt(cart_product_quantity)) {
+					alert("Làm ơn đặt nhỏ hơn " + cart_product_quantity);
+				} else {
+					$.ajax({
+						url: "{{url('/add-cart-ajax')}}",
+						method: 'POST',
+						data: {
+							cart_product_quantity: cart_product_quantity,
+							cart_product_id: cart_product_id,
+							cart_product_name: cart_product_name,
+							cart_product_img: cart_product_img,
+							cart_product_price: cart_product_price,
+							cart_product_qty: cart_product_qty,
+							_token: _token
+						},
+
+						success: function(data) {
+							swal({
+								title: 'Thêm thành công ',
+								icon: "success",
+								button: "Quay lại",
+							}).then(ok => {
+								window.location.reload();
+							});
+
+							
+						}
+
+					});
+
+				}
+			});
+
+		});
 	</script>
 	<script>
 		function show_quick_cart() {
@@ -1180,7 +1226,7 @@
 			var quantity = $(this).val();
 			var session_id = $(this).data('session_id');
 			var _token = $('input[name="_token"]').val();
-		
+
 			$.ajax({
 				url: "{{url('/update_quick_cart')}}",
 				method: 'POST',
@@ -1544,6 +1590,7 @@
 
 				success: function(data) {
 					alert('Huỷ đơn hàng thành công ');
+					location.reload();
 				}
 			});
 		}
@@ -1608,17 +1655,18 @@
 		}
 	</script>
 	<script>
-		$('.category_filter').click(function(){
-			var category=[], tempArray=[];
-			$.each($("[data-filters='category']:checked"),function(){
+		$('.category_filter').click(function() {
+			var category = [],
+				tempArray = [];
+			$.each($("[data-filters='category']:checked"), function() {
 				tempArray.push($(this).val());
 			});
-			
-			
-			if(tempArray.length!==0){
-				category+='?cate='+tempArray.toString();
+
+
+			if (tempArray.length !== 0) {
+				category += '?cate=' + tempArray.toString();
 			}
-			window.location.href=category;
+			window.location.href = category;
 		});
 	</script>
 

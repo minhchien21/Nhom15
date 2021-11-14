@@ -36,13 +36,13 @@
 									color: 696763;
 									font-family: 'Roboto', sans-serif;
 									font-size: 15px;
-									margin-bottom: 25px;
+									
 
 								}
 							</style>
 
-							<button type="button" data-id_product="{{$product->id}}" class="btn btn-default add-to-cart add_cart_{{$product->id}}">Thêm giỏ hàng</button>
-							<button style="display:none;margin-bottom: 20px;" type="button" id="{{$product->id}}" class="btn btn-danger remove_cart_{{$product->id}} " onclick="delete_cart(this.id)">Xoá giỏ hàng</button>
+							<button type="button" data-id_product="{{$product->id}}" class="btn btn-default add-to-cart1 add_cart_{{$product->id}}">Thêm giỏ hàng</button>
+							<button style="display:none;" type="button" id="{{$product->id}}" class="btn btn-danger remove_cart_{{$product->id}} " onclick="delete_cart(this.id)">Xoá giỏ hàng</button>
 
 							<input type="button" class="btn btn-default xemnhanh" data-toggle="modal" data-target="#xemnhanh" value="Xem nhanh" data-id_product="{{$product->id}}">
 

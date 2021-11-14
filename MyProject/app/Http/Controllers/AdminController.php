@@ -90,7 +90,7 @@ class AdminController extends Controller
       $video_admin = Video::all()->count();
       $customer_admin = Customer::all()->count();
 
-      $product_view = Product::orderBy('product_view', 'DESC')->take(20)->get();
+      $product_view = Product::orderBy('product_view','DESC')->take(20)->get();
       $blog_view = Blog::orderBy('blog_view', 'DESC')->take(20)->get();
 
 
@@ -227,4 +227,5 @@ class AdminController extends Controller
       }
       echo $data = json_encode($chart_data);
    }
+ 
 }

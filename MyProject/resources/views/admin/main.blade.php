@@ -534,6 +534,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         });
     </script>
+ 
     <script>
         $('.order_details').change(function() {
             var order_status = $(this).val();

@@ -68,7 +68,7 @@
 							<input type="text" value="3" class="cart_product_qty_{{$product_detail->id}}" />
 						</div>
 						<p></p>
-						<button type="button" class="btn btn-fefault add-to-cart" data-id_product="{{$product_detail->id}}">
+						<button type="button" class="btn btn-fefault add-to-cart1" data-id_product="{{$product_detail->id}}">
 							<i class="fa fa-shopping-cart"></i>
 							Thêm giỏ hàng
 						</button>
