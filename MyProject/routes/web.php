@@ -29,6 +29,12 @@ Route::get('lang/{locale}',function($locale){
 	return redirect()->back();
 });
 
+// PaypalContoller
+Route::get('create-transaction','PayPalController@createTransaction')->name('createTransaction');
+Route::get('process-transaction','PayPalController@processTransaction')->name('processTransaction');
+Route::get('success-transaction','PayPalController@successTransaction')->name('successTransaction');
+Route::get('cancel-transaction','PayPalController@cancelTransaction')->name('cancelTransaction');
+
 //HomController 
 Route::post('/search','HomeController@search');
 Route::post('/auto_complete_ajax','HomeController@auto_complete_ajax');
@@ -92,13 +98,14 @@ Route::post('/delivery_home','CheckoutController@delivery_home');
 Route::get('/login_checkout','CheckoutController@login_checkout');
 Route::get('/logout_checkout','CheckoutController@logout_checkout');
 Route::post('/add_customer','CheckoutController@add_customer');
-Route::get('/checkout','CheckoutController@checkout');
+Route::get('/checkout','CheckoutController@checkout')->name('checkout');
 Route::post('/save_checkout_customer','CheckoutController@save_checkout');
 Route::post('/login_customer','CheckoutController@login_customer');
 Route::post('/order_place','CheckoutController@order_place');
 Route::get('/payment','CheckoutController@payment');
 Route::get('/handcash','CheckoutController@handcash');
 Route::get('/delete_moneyship','CheckoutController@delete_moneyship');
+Route::get('/account_checkout/{customer_id}','CheckoutController@account_checkout');
 
 
 // BlogController 

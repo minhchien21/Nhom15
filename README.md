@@ -39,3 +39,6 @@ Các công đoạn hoàn thành:
 + show button cart 
 + validation 
 + Input checked product 
++ QR code
++ Paypal
++ Thêm csdl 

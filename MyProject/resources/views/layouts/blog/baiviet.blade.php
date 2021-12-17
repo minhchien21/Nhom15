@@ -11,9 +11,9 @@
 							<h2>{{$posts->blog_title}}</h2>
 							<h3>{{$posts->blog_desc}}</h3>
 							
-							<a href="{{url('/bai_viet/'.$posts->blog_slug)}}">
+							<!-- <a href="{{url('/bai_viet/'.$posts->blog_slug)}}">
 								<img src="{{url('uploads')}}/blog/{{$posts->blog_image}}" alt="">
-							</a>
+							</a> -->
 							<p>{!!$posts->blog_content!!}</p>
 							
 						</div>

@@ -38,7 +38,7 @@ class HomeController extends Controller
 
         $category_blog = CategoryBlog::all();
 
-        $product_nb = Product::orderBy('price', 'DESC')->take(6)->get();
+        $product_nb = Product::orderByRaw('RAND()')->take(6)->get();
 
 
         $slider = Slider::orderBy('slider_id', 'DESC')->where('slider_status', '1')->get();

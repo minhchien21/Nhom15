@@ -123,6 +123,7 @@ class CheckoutController extends Controller
 
             if ($result) {
                 Session::put('customer_id', $result->customer_id);
+                Session::put('customer_name',$result->customer_name);
                 return redirect('/checkout');
             } else {
                 return redirect('/login_checkout');
@@ -130,6 +131,7 @@ class CheckoutController extends Controller
         } else {
             if ($result) {
                 Session::put('customer_id', $result->customer_id);
+                Session::put('customer_name',$result->customer_name);
                 return redirect('/checkout');
             } else {
                 return redirect('/login_checkout');
@@ -302,6 +304,15 @@ class CheckoutController extends Controller
         Session::forget('coupon');
         Session::forget('money');
         Session::forget('cart');
+        Session::forget('total_paypal');
+        Session::forget('success_paypal');
+    }
+    public function account_checkout($customer_id){
+
+        $customer=Customer::where('customer_id',$customer_id)->first();
+        $category_blog = CategoryBlog::all();
+       
+        return view('layouts.account_checkout',compact('customer','category_blog'));
     }
 
 

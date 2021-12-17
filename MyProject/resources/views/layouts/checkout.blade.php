@@ -9,6 +9,14 @@
 
 
 				<div class="col-sm-12 clearfix">
+					@if(\Session::has('error'))
+					<div class="alert alert-danger">{{ \Session::get('error') }}</div>
+					{{ \Session::forget('error') }}
+					@endif
+					@if(\Session::has('success'))
+					<div class="alert alert-success">{{ \Session::get('success') }}</div>
+					{{ \Session::forget('success') }}
+					@endif
 					<div class="bill-to">
 
 						<div class="col-sm-7 padding-left">
@@ -46,13 +54,17 @@
 											<label for="comment" class="control-label col-lg-12">Chọn hình thức thanh toán </label>
 
 											<div class="col-lg-12">
+												@if(!Session::get('success_paypal')==true)
 												<select name='select_payment' id="" class="form-control select_payment">
-
 													<option value="0">Chuyển khoản</option>
 													<option value="1">Tiền mặt</option>
-												
-
 												</select>
+												@else
+												<select name='select_payment' id="" class="form-control select_payment">
+													<option value="2">Đã bằng thanh toán PayPal</option>
+												</select>
+
+												@endif
 											</div>
 										</div>
 									</div>
@@ -149,7 +161,7 @@
 											<a href=""><img width="70px" src="{{url('uploads')}}/home/{{$cart['product_img']}}" alt=""></a>
 										</td>
 										<td class="cart_description">
-											<h4><a href="">{{$cart['product_name']}}</a></h4>
+											<p><a href="">{{$cart['product_name']}}</a></p>
 											<p>Web ID: {{$cart['product_id']}}</p>
 										</td>
 										<td class="cart_price">
@@ -159,7 +171,7 @@
 											<div class="cart_quantity_button">
 
 
-												<input class="cart_quantity" type="number" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" min=1 autocomplete="off" size="2">
+												<input class="cart_quantity" @if(Session::get('success_paypal')==true) readonly @endif type="number" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" min=1 autocomplete="off" size="2">
 
 
 
@@ -170,19 +182,24 @@
 												{{number_format($subtotal,0,',','.')}} đ
 											</p>
 										</td>
+										@if(!Session::get('success_paypal')==true)
 										<td class="cart_delete">
 											<a class="cart_quantity_delete" href="{{url('/delete_cart_ajax/'.$cart['session_id'])}}"><i class="fa fa-times"></i></a>
 										</td>
+										@endif
 									</tr>
 									@endforeach
 									<tr>
+										@if(!Session::get('success_paypal')==true)
 										<td><button type="submit" name="update_qty" class="btn btn-primary btn-default btn-sm">Cập nhật giỏ hàng </button></td>
 										<td><a class="btn btn-default btn-primary check_out" href="{{url('/delete_all_cart')}}"> Xoá tất cả </a></td>
+										<td><a class="btn btn-default btn-primary check_out" href="{{ route('processTransaction') }}">Thanh toán PayPal</a></td>
 										<td>
 											@if(Session::get('coupon'))
 											<a class="btn btn-primary btn-default" href="{{url('/delete_coupon')}}">Xoá mã giảm giá </a>
 											@endif
 										</td>
+										@endif
 										<td>
 											<li>Tổng giá <span>{{number_format($total,0,',','.')}} đ</span></li>
 											@if(Session::get('coupon'))
@@ -257,22 +274,21 @@
 												@endphp
 											</li>
 											<p></p>
-											
+
 											<div class="col-sm-12 ">
 												@php
-													$money_usd = $total_after/22745;
+												$money_usd = $total_after/23017;
+												$total_paypal=round($money_usd,2);
+												\Session::put('total_paypal',$total_paypal);
 												@endphp
-												<div id="paypal-button"></div>
-												<input id="money_usd" type="hidden" value="{{round($money_usd,2)}}">
+
+
 											</div>
 
 
 
 										</td>
-										<td>
-											<!-- <a class="btn btn-default check_out" href="">Thanh Toán </a> -->
 
-										</td>
 
 
 									</tr>
@@ -292,9 +308,10 @@
 						</form>
 
 
-
+						@if(Session::get('cart'))
+						@if(!Session::get('success_paypal')==true)
 						<tr>
-							@if(Session::get('cart'))
+
 							<td>
 
 								<form action="{{url('/check_coupon')}}" method="POST">
@@ -305,9 +322,12 @@
 								</form>
 
 
+
 							</td>
-							@endif
+
 						</tr>
+						@endif
+						@endif
 					</div>
 				</div>
 

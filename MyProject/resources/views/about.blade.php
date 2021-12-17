@@ -69,6 +69,34 @@
 	.control-carousel {
 		font-size: 40px
 	}
+
+	.product-image-wrapper {
+		border-radius: 1rem;
+		border: 2px solid #F7F7F5;
+		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+	}
+	.category-products{
+		border-radius: 1rem;
+		border: 2px solid #F7F7F5;
+		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+		
+	}
+	.brands-name{
+		border-radius: 1rem;
+		border: 2px solid #F7F7F5;
+		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+	}
+	.header-middle .container .row{
+		
+		border-bottom: 1px solid #F7F7F5;
+		box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.3);
+	}
+	.image_background{
+		margin-top:20px;
+		border-radius: 1rem;
+		border: 2px solid #F7F7F5;
+		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+	}
 </style>
 
 <body>
@@ -117,7 +145,7 @@
 
 								<input style="width:70%" type="text" id="keywords" name="keywords_submit" placeholder="Tìm kiếm" />
 								<button class="btn" style="background:#FE980F; color:#fff;" type="submit" name="search_items">Tìm Kiếm </button>
-								<div id="search_ajax"></div>
+								<div style="position: absolute;" id="search_ajax"></div>
 
 							</div>
 						</form>
@@ -224,7 +252,7 @@
 								if ($customer_id != NULL) {
 								?>
 									<li><a href="{{url('/logout_checkout')}}"><i class="fa fa-lock"></i>{{__('lang.logout')}} </a></li>
-									<li><a href="#"><i class="fa fa-user"></i> {{Session::get('customer_name')}} </a></li>
+									<li><a href="{{url('/account_checkout/'.$customer_id)}}"><i class="fa fa-user"></i> {{Session::get('customer_name')}} </a></li>
 
 
 
@@ -330,7 +358,7 @@
 							<div class="item {{$i==1 ? 'active':''}}">
 
 								<div class="col-sm-12">
-									<img width="100%" src="{{url('uploads')}}/slider/{{$slider->slider_image}}" class="girl img-responsive" alt="{{$slider->slider_desc}}" />
+									<img style="border-radius: 1rem;border: 2px solid #F7F7F5;box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);" width="100%" src="{{url('uploads')}}/slider/{{$slider->slider_image}}" class="girl img-responsive" alt="{{$slider->slider_desc}}" />
 
 								</div>
 							</div>
@@ -419,8 +447,8 @@
 						<!-- Sản phẩm đã xem  -->
 						<div class="brands_products">
 
-							<h2>{{__('lang.history_watch')}} </h2>
-							<div class="brands-name">
+							<h2 style="margin-top:20px;">{{__('lang.history_watch')}} </h2>
+							<div class="">
 								<div id="row_watched" class="row">
 
 								</div>
@@ -429,8 +457,8 @@
 
 						<div class="brands_products">
 							<!--brands_products-->
-							<h2>{{__('lang.wishlist')}}</h2>
-							<div class="brands-name">
+							<h2 style="margin-top:20px;">{{__('lang.wishlist')}}</h2>
+							<div class="">
 								<div id="row_wishlist" class="row">
 
 								</div>
@@ -439,7 +467,7 @@
 
 						<!--/brands_products-->
 
-						<div style="background:none; padding:0px 0px;" class="shipping text-center">
+						<div class="image_background" class="shipping text-center">
 							<!--shipping-->
 							<img width="100%" src="{{url('uploads/home/quangcao.jpg')}}" alt="" />
 						</div>
@@ -539,6 +567,7 @@
 								<input type="text" placeholder="Email của bạn" />
 								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
 								<p>Chúng tôi sẽ cố gắng liên hệ với bạn <br />sớm nhất có thể</p>
+								
 							</form>
 						</div>
 					</div>
@@ -603,48 +632,7 @@
 			}
 		})
 	</script>
-	<script>
-		var total = document.getElementById('money_usd').value;
-
-		paypal.Button.render({
-
-			// Configure environment
-			env: 'sandbox',
-			client: {
-				sandbox: 'AZOytF9O09T6jNy9RfxdcFXorGecbV-WK8XzAQ7zkcvIybUGBIQeCJChG3ho8_cwaGCnZ_7n0KZNS9x3',
-				production: 'demo_production_client_id'
-			},
-			// Customize button (optional)
-			locale: 'en_US',
-			style: {
-				size: 'medium',
-				color: 'gold',
-				shape: 'pill',
-			},
-
-			// Enable Pay Now checkout flow (optional)
-			commit: true,
-
-			// Set up a payment
-			payment: function(data, actions) {
-				return actions.payment.create({
-					transactions: [{
-						amount: {
-							total: `${total}`,
-							currency: 'USD'
-						}
-					}]
-				});
-			},
-			// Execute the payment
-			onAuthorize: function(data, actions) {
-				return actions.payment.execute().then(function() {
-					// Show a confirmation message to the buyer
-					window.alert('Cảm ơn bạn đã mua sản phẩm của chúng tôi !');
-				});
-			}
-		}, '#paypal-button');
-	</script>
+	
 
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -1175,7 +1163,7 @@
 								window.location.reload();
 							});
 
-							
+
 						}
 
 					});

@@ -131,6 +131,11 @@
 											<label for="">Số lượng </label>
 											<input type="number" name="qty" min=1 class="cart_product_qty_" value="1" />
 											<p><span id="product_quickview_content"></span></p>
+											@php
+											$qrcode_url=url('product_detail/'.$product->id);
+											@endphp
+
+											<p class="qrcode_style">{{QrCode::size(150)->generate($qrcode_url)}}</p>
 											<div id="product_quickview_button"></div>
 											<div id="beforesend_quickview"></div>
 
@@ -277,13 +282,13 @@
 
 	<div class="recommended_items">
 		<!--recommended_items-->
-		<h2 class="title text-center">Đối tác của chúng tồi </h2>
+		<h2 class="title text-center">Đối tác của chúng tôi </h2>
 
 		<div style="padding:20px 0px 0px 0px" class="owl-carousel owl-theme col-md-12">
 			@foreach($partner as $partners)
 			<div class="item">
 				<a href="{{$partners->icon_link}}">
-					<p><img width="150px" height="150px" src="{{url('uploads/icon/'.$partners->icon_image)}}" alt="">
+					<p><img style="border-radius: 1rem; border: 2px solid #F7F7F5;box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);" width="150px" height="150px" src="{{url('uploads/icon/'.$partners->icon_image)}}" alt="">
 					</p>
 					<h5 style="text-transform: uppercase;" class="part_name">{{$partners->icon_name}}</h5>
 				</a>

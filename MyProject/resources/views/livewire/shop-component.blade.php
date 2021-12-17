@@ -7,29 +7,27 @@
 		<h2 class="title text-center">Tất cả sản phẩm</h2>
 
 		@foreach($category as $name_category)
-			
+
 		@endforeach
 		<div class="col-sm-12">
 			<label for="">Lọc sản phẩm </label>
 
 			@php
-				$category_cate=[];
-				$category_arrary=[];
-				if(isset($_GET['cate'])){
-					$category_cate=$_GET['cate'];
-				}else{
-					$category_cate=$name_category->theloai.",";
-				}
-				$category_arrary=explode(",",$category_cate);
+			$category_cate=[];
+			$category_arrary=[];
+			if(isset($_GET['cate'])){
+			$category_cate=$_GET['cate'];
+			}else{
+			$category_cate=$name_category->theloai.",";
+			}
+			$category_arrary=explode(",",$category_cate);
 			@endphp
 
 			@foreach($category as $keys => $values)
-				<label class="checkbox-inline" for="">
-						<input type="checkbox" 
-						{{in_array($values->theloai,$category_arrary) ? 'checked': ''}}
-						class="form-control-checkbox category_filter" data-filters="category" value="{{$values->theloai}}" name="category_filter">
-						{{$values->Tên}}
-				</label>
+			<label class="checkbox-inline" for="">
+				<input type="checkbox" {{in_array($values->theloai,$category_arrary) ? 'checked': ''}} class="form-control-checkbox category_filter" data-filters="category" value="{{$values->theloai}}" name="category_filter">
+				{{$values->Tên}}
+			</label>
 			@endforeach
 		</div>
 
@@ -95,7 +93,7 @@
 									color: 696763;
 									font-family: 'Roboto', sans-serif;
 									font-size: 15px;
-									
+
 								}
 							</style>
 							<button type="button" data-id_product="{{$product->id}}" class="btn btn-default add-to-cart1 add_cart_{{$product->id}}">Thêm giỏ hàng</button>
@@ -168,18 +166,29 @@
 											<label for="">Số lượng </label>
 											<input type="number" name="qty" min=1 class="cart_product_qty_" value="1" />
 											<p><span id="product_quickview_content"></span></p>
+											@php
+											$qrcode_url=url('product_detail/'.$product->id);
+											@endphp
+
+											<p class="qrcode_style">{{QrCode::size(150)->generate($qrcode_url)}}</p>
+											
 											<div id="product_quickview_button"></div>
 											<div id="beforesend_quickview"></div>
 
 										</div>
+
 									</form>
+
+
 								</div>
 							</div>
+
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 								<button type="button" class="btn btn-default redirect_cart">Đi tới sản phẩm</button>
 
 							</div>
+
 						</div>
 					</div>
 				</div>

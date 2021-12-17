@@ -36,7 +36,7 @@
             <th>Hình ảnh bài viết </th>
             <th>Slug</th>
             <th>Tóm tắt bài viết  </th>
-            <th>Nội dung bài viết </th>
+            
             <th>Meta từ khoá</th>
             <th>Meta nội dung</th>
             
@@ -53,7 +53,7 @@
                     <td><img height="150" width="150" src=" {{url('/uploads/blog')}}/{{$blog->blog_image}}" alt=""></td>
                     <td>{{$blog->blog_slug}}</td>
                     <td>{{$blog->blog_desc}}</td>
-                    <td>{!!$blog->blog_content!!}</td>
+                   
                     <td>{{$blog->blog_meta_keywords}}</td>
                     <td>{{$blog->blog_meta_desc}}</td>
                    

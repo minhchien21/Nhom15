@@ -33,7 +33,7 @@ class BlogController extends Controller
             $url_canonical=$request->url();
         }
        
-        $post=Blog::where('blog_status',1)->where('category_blog_id',$cate_id)->paginate(2);
+        $post=Blog::where('blog_status',1)->where('category_blog_id',$cate_id)->paginate(4);
        
        
        

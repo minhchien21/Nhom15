@@ -14,6 +14,10 @@
 
             </div>
             <div class="col-md-12">
+                <h4>Mã Qr </h4>
+                <p>{{QrCode::size(150)->generate("tranchien021@gmail.com")}}</p>
+            </div>
+            <div class="col-md-12">
                 <h4>Bản đồ</h4>
                 {!! $contact->info_map !!}
             </div>
